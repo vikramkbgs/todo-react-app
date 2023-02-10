@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TodoForm from "./TodoForm";
-import { RiCloseCircleLine } from "react-icons/ri";
-import { TiEdit } from "react-icons/ti";
+import { MdDeleteForever } from "react-icons/md";
+import { RiEditCircleFill } from "react-icons/ri";
 
 const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
   const [edit, setEdit] = useState({
@@ -49,14 +49,14 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
       <div className="icons">
         {/* This div contains the delete and edit icons */}
 
-        <RiCloseCircleLine
+        <MdDeleteForever
           onClick={() => removeTodo(todo.id)}
           className="delete-icon"
         />
         {/* The delete icon allows the user to remove a todo */}
         {/* When the icon is clicked, the removeTodo function is called with the id of the todo */}
 
-        <TiEdit
+        <RiEditCircleFill
           onClick={() => setEdit({ id: todo.id, value: todo.title })}
           className="edit-icon"
         />

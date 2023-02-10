@@ -12,13 +12,13 @@ function TodoList() {
     const fetchTodos = async () => {
       // Fetch the list of todos from the API
       const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/todos?_limit=3"
+        "https://jsonplaceholder.typicode.com/todos?_limit=12"
       );
 
       // Update the todos state with the fetched todos
       setTodos(response.data);
     };
-    console.log("fetching...");
+    
     fetchTodos();
   }, []);
 
@@ -31,7 +31,7 @@ function TodoList() {
 
     // Add the new todo to the front of the todos array
     const newTodo = [todo, ...todos];
-    console.log("adding...");
+    
     const response = await axios.post(
       "https://jsonplaceholder.typicode.com/todos",
       newTodo
@@ -40,7 +40,7 @@ function TodoList() {
     const filteredData = Array.from(Object.values(response.data)).filter(
       (val) => typeof val !== "number"
     );
-    console.log(filteredData);
+    
     // Update the todos state with the new todos array
    setTodos(filteredData);
   };
@@ -65,19 +65,21 @@ function TodoList() {
       `https://jsonplaceholder.typicode.com/todos/${todoId}`,
       newValue
     );
+    console.log("response after editing", response.data);
   };
 
   // Function to remove a todo
   const removeTodo = async (id) => {
     // Make a delete request to the API to delete the todo
     await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
-    console.log("deleting...");
+ 
     // Update the todos state by removing the deleted todo
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   // Function to toggle the completion status of a todo
   const completeTodo =async (id) => {
+
     // Map over the todos array and toggle the completion status of the todo with the given id
     let updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
@@ -91,20 +93,19 @@ function TodoList() {
       updatedTodos
     );
 
-    console.log('updatetodo', response.data);
     const filteredData = Array.from(Object.values(response.data)).filter(
       (val) => typeof val !== "number"
     );
 
-     console.log("updatetodo with array", filteredData);
     // Update the todos state with the updated todo
     setTodos(filteredData);
+    console.log(filteredData);
   };
 
   return (
     <>
       {/* Title */}
-      <h1>What's the Plan for Today?</h1>
+      <h1>What's up for today?</h1>
       {/* TodoForm component with the addTodo function passed as a prop */}
       <TodoForm onSubmit={addTodo} todoLength={todos.length} />
       {/* Todo component with all the necessary functions and state passed as props */}
