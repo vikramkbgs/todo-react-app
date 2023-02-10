@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import TodoForm from "./TodoForm";
 import Todo from "./Todo";
 
@@ -7,24 +8,48 @@ function TodoList() {
   // State to store all the todos
   const [todos, setTodos] = useState([]);
 
+  useEffect(() => {
+    const fetchTodos = async () => {
+      // Fetch the list of todos from the API
+      const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/todos?_limit=3"
+      );
+
+      // Update the todos state with the fetched todos
+      setTodos(response.data);
+    };
+
+    fetchTodos();
+  }, []);
+
   // Function to add a new todo
-  const addTodo = (todo) => {
-    // Check if the todo text is not empty or only whitespace
-    if (!todo.text || /^\s*$/.test(todo.text)) {
+  const addTodo = async (todo) => {
+    // Check if the todo title is not empty or only whitespace
+    if (!todo.title || /^\s*$/.test(todo.title)) {
       return;
     }
 
     // Add the new todo to the front of the todos array
-    const newTodos = [todo, ...todos];
+    const newTodo = [todo, ...todos];
+    console.log("Before update: ", newTodo);
+    const response = await axios.post(
+      "https://jsonplaceholder.typicode.com/todos",
+      newTodo
+    );
+
+    const filteredData = Array.from(Object.values(response.data)).filter(
+      (val) => typeof val !== "number"
+    );
 
     // Update the todos state with the new todos array
-    setTodos(newTodos);
+   setTodos(filteredData);
   };
+
 
   // Function to update an existing todo
   const updateTodo = (todoId, newValue) => {
-    // Check if the updated todo text is not empty or only whitespace
-    if (!newValue.text || /^\s*$/.test(newValue.text)) {
+    // Check if the updated todo title is not empty or only whitespace
+    if (!newValue.title || /^\s*$/.test(newValue.title)) {
       return;
     }
 
@@ -48,7 +73,7 @@ function TodoList() {
     // Map over the todos array and toggle the completion status of the todo with the given id
     let updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
-        todo.isComplete = !todo.isComplete;
+        todo.completed = !todo.completed;
       }
       return todo;
     });

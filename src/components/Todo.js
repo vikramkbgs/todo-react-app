@@ -7,6 +7,7 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
   const [edit, setEdit] = useState({
     id: null,
     value: "",
+    completed:"false",
   });
 
   // This function is used to submit an updated todo
@@ -18,6 +19,7 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
     setEdit({
       id: null,
       value: "",
+      completed: "false",
     });
   };
 
@@ -27,17 +29,19 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
     return <TodoForm edit={edit} onSubmit={submitUpdate} />;
   }
 
+//   console.log(todos);
+  
   // Map through the array of todos and return a list of div elements
   return todos.map((todo, index) => (
     // Each div element represents a todo
     <div
     //    Set the classname based on whether the todo is complete
-      className={todo.isComplete ? "todo-row complete" : "todo-row"}
+      className={todo.completed ? "todo-row complete" : "todo-row"}
       key={index}
     >
       <div key={todo.id} onClick={() => completeTodo(todo.id)}>
-        {/*  Display the text of the todo */}
-        {todo.text}
+        {/*  Display the title of the todo */}
+        {todo.title}
       </div>
 
       <div className="icons">
@@ -51,11 +55,11 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
         {/* When the icon is clicked, the removeTodo function is called with the id of the todo */}
 
         <TiEdit
-          onClick={() => setEdit({ id: todo.id, value: todo.text })}
+          onClick={() => setEdit({ id: todo.id, value: todo.title })}
           className="edit-icon"
         />
         {/* The edit icon allows the user to edit a todo */}
-        {/* When the icon is clicked, the setEdit function is called with an object containing the id and text of the todo */}
+        {/* When the icon is clicked, the setEdit function is called with an object containing the id and title of the todo */}
       </div>
     </div>
   ));
