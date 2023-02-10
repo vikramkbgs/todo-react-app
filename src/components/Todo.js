@@ -26,7 +26,9 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
   // Check if a todo is being edited
   if (edit.id) {
     // If a todo is being edited, return the TodoForm component
-    return <TodoForm edit={edit} onSubmit={submitUpdate} />;
+    return (
+      <TodoForm edit={edit} onSubmit={submitUpdate} />
+    );
   }
 
 //   console.log(todos);

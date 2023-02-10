@@ -24,7 +24,7 @@ function TodoForm(props) {
 
     // Call the onSubmit prop with the new todo item
     props.onSubmit({
-      id: Math.floor(Math.random() * 10000),
+      id: props.todoLength+1,
       title: input,
     });
     // Reset the input value

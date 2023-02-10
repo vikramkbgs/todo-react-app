@@ -18,7 +18,7 @@ function TodoList() {
       // Update the todos state with the fetched todos
       setTodos(response.data);
     };
-
+    console.log("fetching...");
     fetchTodos();
   }, []);
 
@@ -31,7 +31,7 @@ function TodoList() {
 
     // Add the new todo to the front of the todos array
     const newTodo = [todo, ...todos];
-    console.log("Before update: ", newTodo);
+    console.log("adding...");
     const response = await axios.post(
       "https://jsonplaceholder.typicode.com/todos",
       newTodo
@@ -40,36 +40,44 @@ function TodoList() {
     const filteredData = Array.from(Object.values(response.data)).filter(
       (val) => typeof val !== "number"
     );
-
+    console.log(filteredData);
     // Update the todos state with the new todos array
    setTodos(filteredData);
   };
 
 
   // Function to update an existing todo
-  const updateTodo = (todoId, newValue) => {
+  const updateTodo =async (todoId, newValue) => {
     // Check if the updated todo title is not empty or only whitespace
     if (!newValue.title || /^\s*$/.test(newValue.title)) {
       return;
     }
 
+    newValue.id = todoId;
+    newValue.completed = 'false';
+
     // Map over the previous todos state and return the updated todo
     setTodos((prev) =>
       prev.map((item) => (item.id === todoId ? newValue : item))
     );
+
+    const response = await axios.put(
+      `https://jsonplaceholder.typicode.com/todos/${todoId}`,
+      newValue
+    );
   };
 
   // Function to remove a todo
-  const removeTodo = (id) => {
-    // Filter the todos array to exclude the todo with the given id
-    const removedArr = [...todos].filter((todo) => todo.id !== id);
-
-    // Update the todos state with the filtered todos array
-    setTodos(removedArr);
+  const removeTodo = async (id) => {
+    // Make a delete request to the API to delete the todo
+    await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
+    console.log("deleting...");
+    // Update the todos state by removing the deleted todo
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   // Function to toggle the completion status of a todo
-  const completeTodo = (id) => {
+  const completeTodo =async (id) => {
     // Map over the todos array and toggle the completion status of the todo with the given id
     let updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
@@ -77,8 +85,20 @@ function TodoList() {
       }
       return todo;
     });
-    // Update the todos state with the updated todos array
-    setTodos(updatedTodos);
+
+    const response = await axios.put(
+      `https://jsonplaceholder.typicode.com/todos/${id}`,
+      updatedTodos
+    );
+
+    console.log('updatetodo', response.data);
+    const filteredData = Array.from(Object.values(response.data)).filter(
+      (val) => typeof val !== "number"
+    );
+
+     console.log("updatetodo with array", filteredData);
+    // Update the todos state with the updated todo
+    setTodos(filteredData);
   };
 
   return (
@@ -86,7 +106,7 @@ function TodoList() {
       {/* Title */}
       <h1>What's the Plan for Today?</h1>
       {/* TodoForm component with the addTodo function passed as a prop */}
-      <TodoForm onSubmit={addTodo} />
+      <TodoForm onSubmit={addTodo} todoLength={todos.length} />
       {/* Todo component with all the necessary functions and state passed as props */}
       <Todo
         todos={todos}
