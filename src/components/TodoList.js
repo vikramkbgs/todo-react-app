@@ -65,7 +65,7 @@ function TodoList() {
       `https://jsonplaceholder.typicode.com/todos/${todoId}`,
       newValue
     );
-    console.log("response after editing", response.data);
+    
   };
 
   // Function to remove a todo
@@ -99,7 +99,6 @@ function TodoList() {
 
     // Update the todos state with the updated todo
     setTodos(filteredData);
-    console.log(filteredData);
   };
 
   return (
