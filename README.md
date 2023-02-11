@@ -10,11 +10,15 @@ This application uses [JSONPlaceholder API](https://jsonplaceholder.typicode.com
 ## How the API works
 The API has several endpoints, but in this application, we are using the following endpoints:
 
-- `GET /todos`: This endpoint returns an array of todo objects.
+- GET /todos: This endpoint returns an array of todo objects.
 
-- `POST /todos`: This endpoint is used to add a new todo. It accepts a JSON object containing the todo information as the request body.
+- POST /todos: This endpoint is used to add a new todo. It accepts a JSON object containing the todo information as the request body.
 
-In this app, the axios library is used to make HTTP requests to the JSON Placeholder API. To get the list of todos, the GET request is made to the URL https://jsonplaceholder.typicode.com/todos. To add a new todo, the POST request is made to the same URL with the new todo data as the request body. To delete a todo, the DELETE request is made to the URL https://jsonplaceholder.typicode.com/todos/{id} with the todo's id as a path parameter.
+- PUT /todos/{id}: This endpoint is used to update an existing todo. It accepts a JSON object containing the updated todo information as the request body and the todo's id as a path parameter.
+
+- DELETE /todos/{id}: This endpoint is used to delete a todo. It requires the todo's id as a path parameter.
+
+In this app, the axios library is used to make HTTP requests to the JSON Placeholder API. To get the list of todos, the GET request is made to the URL https://jsonplaceholder.typicode.com/todos. To add a new todo, the POST request is made to the same URL with the new todo data as the request body. To update a todo, the PUT request is made to the URL https://jsonplaceholder.typicode.com/todos/{id} with the updated todo data and the todo's id as the request body and path parameter. To delete a todo, the DELETE request is made to the URL https://jsonplaceholder.typicode.com/todos/{id} with the todo's id as a path parameter.
 
 ## Features
 - Add new todo
