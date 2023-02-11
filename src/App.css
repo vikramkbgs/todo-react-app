@@ -87,28 +87,22 @@ h1 {
   align-items: center;
   margin: 4px auto;
   color: #fff;
-  background: linear-gradient(90deg, #FF7614 0%, #FF5411 100%);
-  /* Orange gradient */
+  background-color:rgb(244 114 182);
   padding: 16px;
   border-radius: 5px;
   width: 90%;
 }
 
 .todo-row:nth-child(4n + 1) {
-  background: linear-gradient(90deg, #5D0CFF 0%, #9B00FA 100%);
-  /* Purple gradient */
+  background-color: rgb(199 210 254);
 }
 
 .todo-row:nth-child(4n + 2) {
-  background: linear-gradient(90deg,
-      rgba(255, 12, 241, 1) 0%,
-      rgba(250, 0, 135, 1) 100%);
+  background-color: rgb(125 211 252);
 }
 
 .todo-row:nth-child(4n + 3) {
-  background: linear-gradient(90deg,
-      rgba(20, 159, 255, 1) 0%,
-      rgba(17, 122, 255, 1) 100%);
+  background-color:rgb(153 246 228) ;
 }
 
 .icons {
@@ -120,11 +114,11 @@ h1 {
 
 .delete-icon {
   margin-right: 5px;
-  color: #fff;
+  color:rgb(236 72 153);
   font-size: 2rem;
 }
 
 .edit-icon {
-  color: #fff;
+  color: rgb(250 204 21);
   font-size: 2rem;
 }
