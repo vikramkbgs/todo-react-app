@@ -20,7 +20,16 @@ In this app, the axios library is used to make HTTP requests to the JSON Placeho
 - Add new todo
 - Display existing todos
 - Cross off completed todos
-- Delete todo
+- Delete existing todos
+### Each feature is explained in detail below:
+
+- Add new todo: This feature allows the user to add a new todo item to the list. The user can enter the todo description and press the "Add" button to add it to the list.
+
+- Display existing todos: This feature displays all the existing todos in the list. The user can view the description of each todo item.
+
+- Cross off completed todos: This feature allows the user to mark a todo as complete. The user can click on the todo item to cross it off.
+
+- Delete existing todos: This feature allows the user to delete an existing todo from the list. The user can click the "Delete" button next to the todo item to remove it from the list.
 
 ## Development
 1. Clone the repository
